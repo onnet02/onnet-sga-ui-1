@@ -1,0 +1,127 @@
+<div class="header bg-gradient-success pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+      <!-- Header Content -->
+    </div>
+  </div>
+</div>
+
+
+
+<div class="container-fluid mt--7">
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card" id="main-card">
+
+        <div class="sticky">
+          <button type="btn" class="btn btn-success  sticky " 
+          data-target="#newCargoModal" data-toggle="modal">Novo
+            cargo &nbsp; <i class="fas fa-plus-circle"></i></button></div>
+
+        <div class="row">
+          <div class="col-6">
+            <mat-form-field>
+              <input matInput type="text" (keyup)="applyFilter($event.target.value)" class="form-control filterInput"
+                placeholder="Filtrar" />
+            </mat-form-field>
+          </div>
+        </div>
+
+        <table id="table-cargo" mat-table [dataSource]="dataSource" matSort width="100%">
+
+          <ng-container matColumnDef="nome">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Nome</th>
+            <td mat-cell *matCellDef="let element">{{element.nome}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="descricao">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Descrição</th>
+            <td mat-cell *matCellDef="let element">{{element.descricao}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="editar">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Editar</th>
+            <td mat-cell *matCellDef="let element">
+              <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#newCargoModal"
+                (click)="loadInput(element)">Editar &nbsp;<i class="far fa-edit"></i> </button>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="deletar">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Deletar</th>
+            <td mat-cell *matCellDef="let element">
+              <button type="button" class="btn btn-danger" (click)="trash(element)">Deletar &nbsp;<i
+                  class="fas fa-trash-alt"></i></button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="col-12">
+    <div class="modal fade" id="newCargoModal" tabindex="-1" role="dialog" aria-labelledby="modal-notification"
+      aria-hidden="true">
+      <div class="modal-dialog modal-info modal-dialog-centered modal-" role="document">
+        <div class="modal-content bg-gradient-info">
+
+          <div class="modal-header">
+            <h3 class="modal-title" id="modal-title-notification">Criar um novo ticket</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+
+          <div class="modal-body">
+
+            <form [formGroup]="cargoForm">
+              <div class="row">
+                <div class="col-8">
+
+                  <div class="form-group">
+                    <label for="assuntoInput">Nome: </label>
+                    <input type="text" class="form-control" formControlName="nome" [(ngModel)]="cargo.nome"
+                      id="assuntoInput" placeholder="Cargo" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-12">
+
+                  <div class="form-group">
+                    <label for="descricaoInput">Descrição: </label>
+                    <textarea cols="5" rows="5" class="form-control" formControlName="descricao"
+                      [(ngModel)]="cargo.descricao" id="descricaoInput"></textarea>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-link text-white ml-auto" data-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-success" (click)="save()">Enviar&nbsp;<i
+                    class="fas fa-paper-plane"></i></button>
+              </div>
+            </form>
+
+          </div>
+
+
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

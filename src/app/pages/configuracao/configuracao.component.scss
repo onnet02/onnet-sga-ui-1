@@ -1,0 +1,19 @@
+.bg-purple{
+    background-color: rgb(153, 6, 153) !important;
+}
+
+.bg-aqua{
+    background-color: rgb(34, 110, 252) !important;
+}
+
+.hold-animation{
+    transition: .5s;
+    cursor: pointer;
+
+}
+
+
+.hold-animation:hover{
+   transform: scale(1.1)
+}
+

@@ -1,0 +1,129 @@
+<div class="header bg-gradient-success pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+      <!-- Header Content -->
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid mt--7">
+
+  <div class="card" id="main-card">
+
+    <div class="row">
+      <div class="col-1"></div>
+
+      <div class="col-8">
+        <input type="text" placeholder="                PROTOCOLO / ASSUNTO" class="form-control rounded-input"
+          (keyup)="filterTicket($event.target.value)" />
+        <a class="search-btn"><i class="fas fa-search"></i></a>
+      </div>
+
+      <div class="col-3">
+        <p>
+
+          <button class="btn btn-primary btn-full" type="button" data-toggle="collapse" data-target="#collapseExample"
+            aria-expanded="false" aria-controls="collapseExample">
+            Filtros
+          </button>
+        </p>
+        <div class="collapse" id="collapseExample">
+          <div class="card card-body">
+            <mat-checkbox (change)="isChecked()" [labelPosition]="labelPosition"> Chats Ativos
+            </mat-checkbox>
+            <mat-checkbox (change)="isChecked()" [labelPosition]="labelPosition"> Novo
+            </mat-checkbox>
+            <mat-checkbox (change)="isChecked()" [labelPosition]="labelPosition"> Aguardando
+            </mat-checkbox>
+            <mat-checkbox (change)="isChecked()" [labelPosition]="labelPosition"> Em Execução
+            </mat-checkbox>
+            <mat-checkbox (change)="isChecked()" [labelPosition]="labelPosition"> Finalizado
+            </mat-checkbox>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="accordion" id="ticketAccordion">
+      <div class="card" *ngFor="let ticket of tickets; index as i;">
+        <div class="card-header" id="headingOne">
+          <div class="row">
+            <div class="col-11">
+              <h5 class="mb-0">
+                <button  (click)="expandIcon(); " class="btn btn-link" type="button"
+                  data-toggle="collapse" [attr.data-target]="'#ticket' + ticket.id" aria-expanded="true" aria-controls="collapseOne">
+                  <i class="fas fa-circle"></i>&nbsp; {{ticket.id}} - {{ticket.assunto}}
+                </button>
+
+              </h5>
+            </div>
+            <div class="col-1">
+              <div class="col-2">
+                <i class="{{iconClass}}"></i>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div id="ticket{{ticket.id}}" class="collapse" aria-labelledby="headingOne" data-parent="#ticketAccordion">
+          <div class="card-body">
+
+            <br />
+            <div class="row">
+
+              <div class="col-1">
+                <i (click)="goToChatPage(ticket)" title="Abrir chat" class="fas fa-paper-plane animatedIcon"></i>
+              </div>
+
+              <div class="col-3">
+                <u>SETOR</u> <br> {{ticket.setor.nome}}
+              </div>
+
+              <div class="col-3">
+                <u>STATUS</u> <br /> {{ticket.ticketStatus.descricao}}
+              </div>
+
+              <div class="col-3">
+                <u>CHAT ATIVO</u> <br /> SIM
+              </div>
+
+              <div class="col-2">
+                <u>OPERADOR</u> <br /> {{ticket.user.username}}
+              </div>
+            </div>
+
+            <br /> <br />
+            <div class="row">
+              <div class="col-1">
+                <i style="color: blue;" class="fas fa-file-alt"></i>
+              </div>
+              <div class="col-3">
+                <u>DESCRIÇÃO</u>
+              </div>
+              <div class="col-6"></div>
+              <div class="col-2">
+                DATA<br />
+                {{ ticket.created_at | date }}
+              </div>
+            </div>
+
+            <br />
+            <br />
+            <div class="row">
+              <div class="col-12">
+                {{ticket.descricao}}
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+
+  </div>
+</div>

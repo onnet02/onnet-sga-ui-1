@@ -1,0 +1,176 @@
+.pointer {
+  cursor: pointer;
+  height: 400px;
+  box-shadow: 10px, 10px, 10px, 10px grey !important;
+  border: solid 1px green;
+  backface-visibility: hidden;
+}
+
+.centered-text {
+  text-align: center;
+}
+
+.font1 {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bold;
+}
+
+.gerenciarbutton {
+  position: relative;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  padding: 10px;
+  color: white;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bold;
+  background: transparent !important;
+  border-radius: 10px;
+  border: solid 2px #0bddcc;
+  width: 50%;
+  font-size: 16pt;
+  transition: all 0.5s ease;
+  overflow: hidden;
+  cursor: pointer;
+  backface-visibility: hidden;
+}
+
+.gerenciarbutton:hover {
+  background: #0bddcc !important;
+}
+
+.gerenciarbutton:after {
+  content: "";
+  background: rgb(19, 162, 197);
+  display: block;
+  position: absolute;
+  padding-top: 300%;
+  padding-left: 350%;
+  margin-left: -10px !important;
+  margin-top: -120%;
+  opacity: 0;
+  transition: all 0.8s;
+}
+
+.gerenciarbutton:active:after {
+  padding: 0;
+  margin: 0;
+  opacity: 1;
+  transition: 0s;
+}
+
+.wave {
+  position: relative;
+  background: linear-gradient(90deg, #1cbd72, #0dc5b6);
+  height: 200px;
+  border-radius: 5px;
+  backface-visibility: hidden;
+}
+
+.wave:before {
+  backface-visibility: hidden;
+
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 150px;
+  background: url(../../../assets/img/wave.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  border: transparent;
+}
+
+.wave2 {
+  position: relative;
+  background: linear-gradient(90deg, #1b75dd, #1244cf);
+  height: 200px;
+  border-radius: 5px;
+  backface-visibility: hidden;
+}
+
+.card-content-mobile{
+  padding: 10px;
+}
+
+.wave2:before {
+  backface-visibility: hidden;
+
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 120px;
+  background: url(../../../assets/img/wave.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  border: transparent;
+}
+
+.content-card {
+  position: relative;
+  top: 140px;
+  backface-visibility: hidden !important;
+}
+
+.thecard {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: all 0.5s ease;
+  background: white;
+  border-radius: 10px;
+  z-index: 1;
+}
+
+.thecard.flipped {
+  transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
+}
+// .thecard:hover {
+//   transform: rotateY(180deg);
+// }
+
+.thefront {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  background: #ffffff;
+  color: #333;
+  border-radius: 5px;
+}
+
+.theback {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  background: #f1f1f1;
+  color: #0dc5b6;
+  transform: rotateY(180deg);
+  border-radius: 5px;
+}
+.text-aqua {
+  color: #ffffff;
+}
+
+.card-stats {
+  transform-style: preserve-3d;
+  transition: all 0.5s ease;
+}
+
+.card-stats:hover {
+  transform: rotateY(180deg);
+}
+
+.maincontainer {
+  position: relative;
+  height: 400px;
+  background: transparent !important;
+  border-radius: 5px;
+}

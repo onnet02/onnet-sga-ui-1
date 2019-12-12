@@ -1,0 +1,63 @@
+#main-card {
+    padding: 20px;
+  }
+  
+  .customBtn {
+    width: 100%;
+    position: sticky;
+    z-index: 1;
+  }
+  
+  .modal-dialog {
+    max-width: 1150px !important;
+    margin: auto;
+  }
+  
+  .table {
+    max-height: 500px;
+  }
+  
+  .sticky {
+      width: 100%;
+      position: sticky !important;
+      bottom: 50px;
+    }
+
+    th{
+      color: white !important;
+    }
+
+    .rounded-input{
+      border-radius: 180px;
+    }
+
+    .search-btn{
+      position: absolute;
+      top:20%;
+      left:4%;
+    }
+
+    .card-header{
+      background-color: rgb(228, 222, 222);
+    }
+
+    .btn-full {
+      width: 100% !important;
+    }
+
+    .animatedIcon{
+      color: blue; 
+      cursor: pointer;
+      transform: scale(1.5);
+      transition: 0.1s;
+    }
+
+    .animatedIcon:hover{
+      transform: scale(2.0)
+    }
+
+    .animatedIcon:active{
+      color: aqua;
+    }
+
+   

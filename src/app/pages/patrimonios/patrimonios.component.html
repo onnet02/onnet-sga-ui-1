@@ -1,0 +1,182 @@
+<div class="header bg-gradient-success pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid mt--7">
+  <div class="row">
+
+    <div class="maincontainer col-12 col-md-12 col-lg-5 col-xl-5">
+
+      <div class="thecard" [class.flipped]="flipped">
+
+        <div class="thefront">
+          <div class="card-header-wave wave">
+            <h2 class="centered-text text-white font1">Gerenciar Celulares</h2>
+
+
+            <button type="btn" class="gerenciarbutton" (click)="flipCard()">Menu</button>
+
+          </div>
+
+          <div class="card-content-mobile">
+
+            <div class="row">
+              <div class="col-4">
+                <label for="emUso">Em uso: </label>
+                <input type="text" readonly class="form-control" value="40" />
+              </div>
+            </div>
+
+            <br />
+
+            <div class="row">
+              <div class="col-5">
+                <label for="disponivel">Disponíveis: </label>
+                <input type="text" readonly class="form-control" value="10" />
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="theback">
+          <div class="card-back-header wave2">
+            <h2 class="centered-text text-aqua font1">OPÇÕES</h2>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <button type="button" class="btn btn-outline-primary btn-block" [routerLink]="['/mobile-manager']" ><i class="fas fa-user fa-2x"><sup><i
+                      class="fas fa-mobile-alt"></i></sup></i>&nbsp;ALOCAR CELULAR</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <button type="button" class="btn btn-outline-primary btn-block" [routerLink]="['/gerenciar-celular']" ><i class="fas fa-mobile-alt fa-2x"><sup><i
+                      class="fas fa-cog"></i></sup></i>&nbsp;GERENCIAR CELULARES</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <button type="button" class="btn btn-outline-primary btn-block" [routerLink]="['/gerenciar-modelos']" ><i class="fab fa-monero fa-2x"><sup><i
+                      class="fas fa-cog"></i></sup></i>&nbsp;GERENCIAR MODELOS</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <button type="button" class="btn btn-outline-primary btn-block" [routerLink]="['/gerenciar-marcas']" routerLinkActive="router-link-active" ><i class="far fa-bookmark fa-2x"><sup><i
+                      class="fas fa-cog"></i></sup></i>&nbsp;GERENCIAR MARCAS</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <button type="button" class="btn btn-outline-primary btn-block"><i class="fas fa-list-ol fa-2x"></i>&nbsp;Visualizar Celulares</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <button type="button" class="btn btn-dark btn-block" (click)="flipCard()"><i class="fas fa-undo-alt"></i>&nbsp;Voltar</button>
+            </div>
+          </div>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="col-1"></div>
+
+    <div class="maincontainer col-12 col-md-12 col-lg-5 col-xl-5">
+      <div class="thecard" [class.flipped]="flipped2">
+
+        <div class="thefront">
+          <div class="card-header-wave wave">
+            <h2 class="centered-text text-white font1">GERENCIAR EQUIPAMENTOS</h2>
+
+
+            <button type="btn" class="gerenciarbutton" (click)="flipCard2()">MENU</button>
+
+          </div>
+
+          <div class="card-content-mobile">
+
+            <div class="row">
+              <div class="col-4">
+                <label for="emUso">Em uso: </label>
+                <input type="text" readonly class="form-control" value="40" />
+              </div>
+            </div>
+
+            <br />
+
+            <div class="row">
+              <div class="col-5">
+                <label for="disponivel">Disponíveis: </label>
+                <input type="text" readonly class="form-control" value="10" />
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="theback">
+          <div class="card-back-header wave2">
+            <h2 class="centered-text text-aqua font1">OPÇÕES</h2>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <button [routerLink]="['/gerenciar-alocacao-equipamento']" type="button" class="btn btn-outline-primary btn-block"><i class="fas fa-user fa-2x"><sup><i
+                      class="fas fa-mobile-alt"></i></sup></i>&nbsp;ALOCAR EQUIPAMENTO</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <button [routerLink]="['/gerenciar-equipamento']"  type="button" class="btn btn-outline-primary btn-block"><i class="fas fa-mobile-alt fa-2x" ><sup><i
+                      class="fas fa-cog"></i></sup></i>&nbsp;GERENCIAR EQUIPAMENTOS</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <button type="button" class="btn btn-outline-primary btn-block" [routerLink]="['/gerenciar-modelos']" ><i class="fab fa-monero fa-2x"><sup><i
+                      class="fas fa-cog"></i></sup></i>&nbsp;GERENCIAR MODELO</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <button type="button" class="btn btn-outline-primary btn-block" [routerLink]="['/gerenciar-marcas']"><i class="far fa-bookmark fa-2x"><sup><i
+                      class="fas fa-cog"></i></sup></i>&nbsp;GERENCIAR MARCA</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <button type="button" class="btn btn-outline-primary btn-block"><i class="fas fa-list-ol fa-2x"></i>&nbsp;VISUALIZAR EQUIPAMENTOS</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <button type="button" class="btn btn-dark btn-block" (click)="flipCard2()"><i class="fas fa-undo-alt"></i>&nbsp;VOLTAR</button>
+            </div>
+          </div>
+
+
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+
+
+</div>

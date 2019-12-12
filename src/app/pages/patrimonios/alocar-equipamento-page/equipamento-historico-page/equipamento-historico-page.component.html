@@ -1,0 +1,54 @@
+<div class="header bg-gradient-success pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+
+    </div>
+  </div>
+</div>
+
+
+<div class="container-fluid mt--7">
+
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card" id="main-card">
+
+        <div class="row">
+          <div class="col-6">
+            <label for="equipamentFilter">Filtro</label>
+            <input type="text" (keyup)="filterEquipamentTable($event.target.value)" class="form-control">
+          </div>
+        </div>
+
+        <br/>
+
+        <table id="historicTable" class="table table-bordered table-hover">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Colaborador</th>
+                <th scope="col">Data de comodato</th>
+                <th scope="col">Data de devolução</th>
+                <th scope="col">Equipamento</th>
+                <th scope="col">Configuração</th>
+                <th scope="col">Observação</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr id="contentTr" *ngFor="let colabEquipament of equipamentHistoric">
+                <td>{{colabEquipament.colaborador.nome}}</td>
+                <td>{{colabEquipament.data_comodato | date }}</td>
+                <td>{{colabEquipament.data_devolucao | date}}</td>
+                <td>{{colabEquipament.equipamento.modelo.nome}}</td>
+                <td>{{colabEquipament.equipamento.configuracao}}</td>
+                <td>{{colabEquipament.observacao}}</td>
+              </tr>
+            </tbody>
+          </table>
+
+      </div>
+    </div>
+  </div>
+
+
+</div>

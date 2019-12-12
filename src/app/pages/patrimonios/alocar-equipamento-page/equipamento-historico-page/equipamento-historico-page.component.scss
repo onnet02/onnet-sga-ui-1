@@ -1,0 +1,135 @@
+#main-card {
+    padding: 20px;
+  }
+  
+  .filtroPorEmpresa {
+    height: 100px;
+    background-color: rgb(56, 80, 126);
+    width: 100%;
+    display: block;
+    padding: 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  
+  .pointer{
+    cursor: pointer;
+    transition: 0.5s;
+  }
+  
+  .pointer:hover{
+    transform: scale(1.1);
+  }
+  
+  .tagEmpresa {
+    color: rgb(31, 15, 175);
+    display: inline-block;
+    background-color: rgb(232, 236, 240);
+    border-radius: 5px;
+    padding: 10px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+    margin: 10px;
+    border-left: solid 10px rgb(38, 102, 221);
+    transition: 0.2s;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  
+  .tagEmpresa:hover {
+    border-left: solid 20px rgb(0, 252, 252);
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+  }
+  
+  .table tr.active td {
+      background-color:#123456 !important;
+      color: white;
+    }
+  
+  .tagEmpresa:active {
+    background-color: rgb(0, 253, 34);
+    transform: scale(1.1);
+  }
+  
+  
+  
+  label {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+  }
+  
+  .thead-dark{
+      color: white !important;
+  }
+  .modal-dialog {
+      max-width: 1150px !important;
+      margin: auto;
+  }
+  
+  .ajustyModal{
+    margin: 100px auto;
+  }
+  
+  .modal-header{
+      background-color: #123456;
+  }
+  
+  .modal-body{
+    color: #123456;
+  }
+  
+  .btn-darkblue{
+    background: #123456;
+    color: white;
+  }
+  
+  .full{
+    width: 100%;
+  }
+  
+  th{
+    color: white !important;
+  }
+  
+  
+  
+  
+  
+  #equipamentDropInput{
+    box-sizing: border-box;
+    font-size: 16px;
+    padding: 14px 20px 12px 45px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  #equipamentDropInput:focus{outline: 3px solid #ddd;}
+  
+  .dropdown-content{
+    display: none;
+    background-color: #f6f6f6;
+    overflow: auto;
+    border: 1px solid #ddd;
+    z-index: 1;
+  }
+  
+  #equipamentDropdown{
+    transition: opacity 2.5s;
+  }
+  
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdown-content  a:hover {background-color: rgb(22, 55, 145); color: white;}
+  
+  .show {display: block;}
+  
+  #autoComplete{
+    position: relative;
+    z-index: 10000;
+  }

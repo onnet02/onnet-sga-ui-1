@@ -1,0 +1,41 @@
+.card-title {
+  color: white;
+}
+
+.pointer {
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.pointer:hover{
+    transform: scale(1.1);
+}
+
+.bg-lgreen{
+    background-color: #3c8d0d !important;
+}
+
+.newTicketModalContent{
+  padding: 0px;
+  width: 100%;
+
+}
+
+
+.modal-dialog{
+  max-width: 1150px !important;
+  margin: auto;
+}
+
+.modal-header{
+  background-color: #2945e6;
+}
+
+th{
+  color: white !important;
+}
+
+tr{
+  color: black !important;
+}
+

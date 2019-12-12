@@ -1,0 +1,31 @@
+.bg-color-smoth {
+  background-color: #e2e2e2 !important;
+}
+
+.filterInput {
+  border: none !important;
+  border-bottom: solid 2px #8c5bbb !important;
+  transition: 1s;
+  
+}
+
+.filterInput:focus {
+  color: white !important;
+  background-color: #8c5bbb;
+
+}
+
+  
+.modal-dialog {
+  max-width: 1150px !important;
+  margin: auto;
+}
+
+.card-design {
+  padding: 20px;
+}
+
+.table-full{
+    width: 100% !important;
+}
+

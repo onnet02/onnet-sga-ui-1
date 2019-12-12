@@ -1,0 +1,770 @@
+<div class="header bg-gradient-success pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+
+    </div>
+  </div>
+</div>
+
+
+
+<div class="container-fluid mt--7">
+
+  <div class="row">
+
+    <div class="col-4">
+      <div class="card card-stats mb-4 mb-lg-0 pointer" data-toggle="modal" data-target="#celularDisponivelModal">
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <h5 class="card-title text-uppercase text-muted mb-0">Celulares disponiveis</h5>
+              <span class="h2 font-weight-bold mb-0">{{countCelular}}</span>
+            </div>
+            <div class="col-auto">
+              <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                <i class="fas fa-mobile-alt"></i>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-4">
+      <div class="card card-stats mb-4 mb-lg-0 pointer" data-toggle="modal" data-target="#celularEmUsoModal">
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <h5 class="card-title text-uppercase text-muted mb-0">Celulares em uso</h5>
+              <span class="h2 font-weight-bold mb-0">{{countPhoneInUse}}</span>
+            </div>
+            <div class="col-auto">
+              <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                <i class="fas fa-user-clock"></i>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-4">
+      <div class="card card-stats mb-4 mb-lg-0 pointer" [routerLink]="['/historico-de-uso']"  >
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <h5 class="card-title text-uppercase text-muted mb-0">Historico de comodatos</h5>
+              <span class="h2 font-weight-bold mb-0"></span>
+            </div>
+            <div class="col-auto">
+              <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                <i class="fas fa-history"></i>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br />
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card" id="main-card">
+
+        <!-- <div class="row">
+          <div class="col-6">
+            <form [formGroup]="colabCelularForm">
+              <label for="colaboradorSelec">Colaborador selecionado : </label>
+              <select formControlName="colaborador_id" [(ngModel)]="colabCelular.colaborador_id" id="colaboradorSelec" class="form-control" >
+                <option *ngFor="let colaborador of colaboradores" value="{{colaborador.id}}">{{colaborador.nome}}</option>
+              </select>
+            </form>
+          </div>
+
+          <div class="col-3">
+            <br />
+            <button id="acaoButtons" type="btn" title="Alocação" class="btn btn-primary"><i
+                class="fas fa-upload"></i></button>
+            <button type="btn" title="Devolução" class="btn btn-warning"><i class="fas fa-download"></i></button>
+          </div>
+
+        </div> -->
+
+        <hr>
+
+        <div class="row">
+          <label>Filtrar por cidade: </label>
+          <div class="filtroPorEmpresa">
+            <div (click)="filterByCity(empresa )" class="tagEmpresa">
+              <span>TODAS</span>
+            </div>
+            <div (click)="filterByCity(empresa)" *ngFor="let empresa of empresas" class="tagEmpresa">
+              {{empresa.nome_fantasia | uppercase}}
+            </div>
+          </div>
+        </div>
+        <br />
+
+        <div class="row">
+          <label>Filtro: </label>
+          <input type="text" (keyup)="filterTable($event.target.value)" class="form-control" placeholder="Filtro..." />
+        </div>
+
+        <div class="row">
+
+          <table id="colaboradoresTable" class="table table-hover table-bordered">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Colaborador</th>
+                <th scope="col">Email</th>
+                <th scope="col">Setor</th>
+                <th scope="col">Cargo</th>
+                <th scope="col">Contato</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr (click)="getColaborador(colaborador)" (click)="setClickedRow(i)" data-toggle="modal"
+                data-target="#newModeloModal" [class.active]="i == selectedRow" id="contentTr"
+                *ngFor="let colaborador of colaboradores; let i = index">
+                <td>{{colaborador.nome}}</td>
+                <td>{{colaborador.email.endereco}}</td>
+                <td>{{colaborador.setor.nome}}</td>
+                <td>{{colaborador.cargo.nome}}</td>
+                <td>{{colaborador.contato}}</td>
+
+              </tr>
+
+
+            </tbody>
+          </table>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+</div>
+
+<!-- Inicio Modal de Comodato -->
+<div class="modal fade" id="newModeloModal" tabindex="-1" role="dialog" aria-labelledby="modal-notification"
+  aria-hidden="true">
+  <div class="modal-dialog modal-info modal-dialog-centered modal-" role="document">
+    <div class="modal-content bg-gradient-secondary">
+
+      <div class="modal-header">
+        <h3 class="modal-title" id="modal-title-notification">Gerenciar Celulares</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+
+      <br />
+      <div class="row">
+        <div class="col-6">
+          <button type="button" (click)="changeToModalComodato()" class="btn btn-warning full">Comodato &nbsp;<i
+              class="fas fa-upload"></i></button>
+        </div>
+        <div class="col-6">
+          <button type="button" (click)="changeToModalDevolucao()" class="btn btn-info full">Devolução &nbsp;<i
+              class="fas fa-download"></i></button>
+        </div>
+      </div>
+
+      <!-- Opção de comodato modal   -->
+      <div *ngIf="isComodato" class="modal-body">
+
+        <mat-horizontal-stepper linear #stepper>
+          <!-- Step 1 -->
+          <mat-step [stepControl]="1" [editable]="isEditable">
+            <form [formGroup]="colabCelularForm">
+              <ng-template matStepLabel>Selecionar Celular</ng-template>
+
+              <div class="row">
+
+                <div class="col-4">
+                  <label for="dataComodato">Data de comodato: </label>
+                  <input type="date" id="dataComodato" class="form-control" formControlName="data_comodato"
+                    [(ngModel)]="colabCelular.data_comodato" (focusout)="converterDateToExtensive()" />
+                </div>
+
+                <div class="col-8">
+                  <label for="acessorioInput">Acessorios: </label>
+                  <input type="text" id="acessorioInput" class="form-control"
+                    placeholder="fones, carregador, cabo usb, etc..." formControlName="acessorios"
+                    [(ngModel)]="colabCelular.acessorios" />
+                </div>
+
+
+
+              </div>
+
+              <br />
+
+              <div class="row">
+                <div class="col-6">
+                  <label for="filtroCelular">Filtro: </label>
+                  <input (keyup)="filterTablePhone($event.target.value)" type="text" class="form-control"
+                    placeholder="Filtro" />
+                </div>
+              </div>
+
+              <br/>
+
+              <div class="row">
+                <div class="col-12">
+                  <table id="phoneTable" class="table table-striped">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col">Modelo</th>
+                        <th scope="col">Cor</th>
+                        <th scope="col">Serial</th>
+                        <th scope="col">Imei</th>
+                        <th scope="col">Imei2</th>
+                        <th scope="col">Sub_modelo</th>
+                        <th scope="col">Situação</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr id="phoneTr" *ngFor="let celular of celulares; let i = index"
+                        [class.active]="i == selectedRowPhone" (click)="setSelectedPhone(celular)"
+                        (click)="setClickedRowPhone(i) ">
+                        <td>{{celular.modelo.nome}}</td>
+                        <td>{{celular.cor}}</td>
+                        <td>{{celular.serial}}</td>
+                        <td>{{celular.imei}}</td>
+                        <td>{{celular.imei02}}</td>
+                        <td>{{celular.sub_modelo}}</td>
+                        <td>{{celular.situation.descricao}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+
+              <div class="row">
+                <div class="col-11"></div>
+                <div class="col-1">
+                  <button type="button" class="btn btn-primary" mat-button matStepperNext>Próximo</button>
+                </div>
+              </div>
+
+
+            </form>
+          </mat-step>
+
+          <!-- Step 2 -->
+          <mat-step [stepControl]="2" [editable]="isEditable">
+            <form [formGroup]="colabCelularForm">
+              <ng-template matStepLabel>Selecionar chip / e-mail</ng-template>
+
+              <!-- Step2 content -->
+
+              <div class="row">
+
+                <div class="col-5">
+                  <label>Tabela de Chip's</label>
+                  <input type="text" class="form-control" placeholder="Filtro"
+                    (keyup)="filterTableChip($event.target.value)" />
+                  <table id="chipTable" class="table table-bordered table-stripped">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th style="color: white;" scope="col">Número</th>
+                        <th style="color: white;" scope="col">Operadora</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr id="chipTr" *ngFor="let chip of chips ; let i = index" [class.active]="i == selectedRowChip"
+                        (click)="setSelectedChip(chip)" (click)="setClickedRowChip(i)">
+                        <td>{{chip.numero_tel}}</td>
+                        <td>{{chip.operadora}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="col-1"></div>
+
+                <div class="col-5">
+                  <label>Tabela de e-mail's</label>
+                  <input type="text" class="form-control" placeholder="Filtro"
+                    (keyup)="filterTableEmail($event.target.value)" />
+                  <table id="emailTable" class="table table-bordered table-stripepd">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th style="color: white;">Endereço: </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr id="emailTr" [class.active]="i == selectedRowEmail" (click)="setClickedRowEmail(i)"
+                        *ngFor="let email of mobileEmails; let i = index" (click)="setSelectedEmail(email)">
+                        <td>{{email.mobil_email}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+              </div>
+
+              <div class="row">
+                <div class="col-1">
+                  <button type="button" class="btn btn-info" matStepperPrevious>Voltar</button>
+                </div>
+                <div class="col-10"></div>
+                <div class="col-1">
+                  <button type="button" class="btn btn-primary" matStepperNext>Próximo</button>
+                </div>
+              </div>
+              <!-- 
+              <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext>Next</button>
+              </div> -->
+            </form>
+          </mat-step>
+
+          <!-- Step 3 -->
+
+          <mat-step [stepControl]="3" [editable]="isEditable">
+            <ng-template matStepLabel>Confirmação de dados</ng-template>
+
+            <div class="row">
+              <div class="col-5">
+                <label for="colaboradorInput">Colaborador: </label>
+                <input type="text" class="form-control" [ngModel]="nomeColaborador" readonly />
+              </div>
+              <div class="col-5">
+                <label for="dataComodatoView">Data de comodato: </label>
+                <input type="date" class="form-control" [(ngModel)]="colabCelular.data_comodato" readonly />
+              </div>
+            </div>
+
+            <br />
+
+            <div class="row">
+              <div class="col-4">
+                <label for="celularView">Celular Selecionado: </label>
+                <input type="text" class="form-control" [(ngModel)]="celularSelecionado" readonly />
+              </div>
+
+              <div class="col-4">
+                <label for="chipView">Chip Selecionado: </label>
+                <input type="text" class="form-control" value=" {{chipSelecionado}} - {{operadorSelecionada}} "
+                  readonly />
+              </div>
+
+              <div class="col-4">
+                <label for="emailView">E-mail Selecionado: </label>
+                <input type="text" class="form-control" [(ngModel)]="emailSelecionado" readonly />
+              </div>
+            </div>
+            <br />
+            <div class="row">
+              <div class="col-5">
+                <label for="acessoriosView">Acessroios: </label>
+                <input type="text" class="form-control" [(ngModel)]="colabCelular.acessorios" readonly />
+              </div>
+
+              <div class="col-1">
+                <label for="impConfig">Configuração: </label>
+                <button data-toggle="modal" data-target="#printConfigModal" id="impConfig" type="button"
+                  title="Variaveis de impressão" class="btn btn-warning"><i class="fas fa-cogs"></i></button>
+              </div>
+            </div>
+            <br />
+
+            <div class="row">
+              <div class="col-2">
+                <mat-checkbox (change)="isChecked()" [labelPosition]="labelPosition"> Termo Assinado
+                </mat-checkbox>
+              </div>
+
+              <div class="col-4">
+                <button type="button" class="btn btn-success" (click)="imprimirTermo()">Imprimir termo de compromisso
+                  &nbsp; <i class="fas fa-print"></i></button>
+              </div>
+
+              <div class="col-4">
+                <button type="button" class="btn btn-darkblue">Importar termo de compromisso &nbsp; <i
+                    class="fas fa-file-upload"></i></button>
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="col-2">
+                <button mat-button matStepperPrevious>Voltar</button>
+              </div>
+              <div class="col-8"></div>
+              <div class="col-2">
+                <button type="button"  class="btn btn-success" (click)="salvar()"
+                  (click)="stepper.reset()">Confirmar e Salvar&nbsp;<i class="fas fa-check"></i></button>
+              </div>
+            </div>
+
+
+
+
+            <!-- <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </div> -->
+          </mat-step>
+
+
+        </mat-horizontal-stepper>
+
+      </div>
+
+      <!-- Opção de devolução modal -->
+      <div *ngIf="isDevolucao" class="modal-body">
+
+        <br />
+
+        <form [formGroup]="colabCelularForm">
+
+
+          <div class="row">
+            <div class="col-5">
+              <label for="dataDevolucaoInput">Data de devolução: </label>
+              <input id="dataDevolucaoInput" type="date" class="form-control" formControlName="data_devolucao"
+                [(ngModel)]="colabCelular.data_devolucao" />
+            </div>
+          </div>
+          <br />
+
+          <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Celular</th>
+                <th scope="col">Chip</th>
+                <th scope="col">Mobile Email</th>
+                <th scope="col">Visualizar</th>
+                <th scope="col">Devolver</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let comodato of celularesComodatados">
+                <td>{{comodato.phone.modelo.nome}}</td>
+                <td>{{comodato.chip.numero_tel}}</td>
+                <td>{{comodato.mobileEmail.mobil_email}}</td>
+                <td>
+                  <button type="button" class="btn btn-warning"
+                    (click)="devolucaoDoCelular(comodato)">Devolução</button>
+                </td>
+                <td>
+                  <button type="button" class="btn btn-facebook">Visualizar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+
+        </form>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- Fim modal Comodato -->
+
+
+
+
+<div class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Imprimir</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <div id="termo">
+
+          <div title="header">
+            <p style="margin-bottom: 0.46in; line-height: 108%">
+              <br />
+              <br />
+
+            </p>
+          </div>
+          <p style="margin-bottom: 0.11in; line-height: 108%">
+            <font face="Times New Roman, serif">
+              <font size="4" style="font-size: 14pt"><span lang="pt-BR"><b>TERMO
+                    DE RESPONSABILIDADE DE USO DE EQUIPAMENTOS E FERRAMENTAS.</b></span></font>
+            </font>
+          </p>
+          <p lang="pt-BR" style="margin-bottom: 0.11in; line-height: 108%"><br />
+            <br />
+
+          </p>
+          <p style="margin-bottom: 0.11in; line-height: 108%">
+            <font face="Times New Roman, serif">
+              <font size="3" style="font-size: 12pt"><span lang="pt-BR"><i><b>ESTE
+                      TERMO SER&Aacute; CUMPRIDO DE ACORDO COM AS EXIG&Ecirc;NCIAS
+                      MENCIONADAS NO MESMO, PORTANTO O N&Atilde;O CUMPRIMENTO DESTE &Eacute;
+                      DE MINHA RESPONSABILIDADE, SUJEITO A PUNI&Ccedil;&Otilde;ES, A
+                      SEGUIR: </b></i></span></font>
+            </font>
+          </p>
+          <p lang="pt-BR" style="margin-bottom: 0.11in; line-height: 108%"><br />
+            <br />
+
+          </p>
+          <p style="margin-bottom: 0.11in; line-height: 108%">
+            <font face="Times New Roman, serif"><span lang="pt-BR">1
+                &ndash; A empresa </span></font>
+            <font face="Times New Roman, serif"><span lang="pt-BR"><b>{{empresaTermo}}</b></span></font>
+            <font face="Times New Roman, serif"><span lang="pt-BR">
+                est&aacute; concedendo para trabalho CELULAR {{marcaSelecionada}} {{celularSelecionado}} -
+                {{subModeloSelecionado}}, {{colabCelular.acessorios}}. O equipamento &eacute; para
+                uso exclusivamente profissional.</span></font>
+          </p>
+          <p style="margin-bottom: 0.11in; line-height: 108%">
+            <font face="Times New Roman, serif"><span lang="pt-BR">2
+                &ndash; Fica terminantemente proibido o empr&eacute;stimo do
+                equipamento para terceiros.</span></font>
+          </p>
+          <p style="margin-bottom: 0.11in; line-height: 108%">
+            <font face="Times New Roman, serif"><span lang="pt-BR">3
+                &ndash; &Eacute; proibido efetuar qualquer altera&ccedil;&atilde;o
+                nas caracter&iacute;sticas do Aparelho.</span></font>
+          </p>
+          <p style="margin-bottom: 0.11in; line-height: 108%">
+            <font face="Times New Roman, serif"><span lang="pt-BR">4
+                &ndash; &Eacute; Proibido instalar qualquer tipo de aplicativo (App)
+                ou Jogos, e ou sem comunicar a empresa.</span></font>
+          </p>
+          <p style="margin-bottom: 0.11in; line-height: 108%">
+            <font face="Times New Roman, serif"><span lang="pt-BR">5
+                &ndash; &Eacute; Proibido manter Arquivos particulares no mesmo,
+                (m&uacute;sicas, imagens e Arquivos).</span></font>
+          </p>
+          <p style="margin-bottom: 0.11in; line-height: 108%">
+            <font face="Times New Roman, serif"><span lang="pt-BR">6
+                &ndash; A empresa poder&aacute; recolher e ou vistoriar o Aparelho a
+                qualquer hora e sem pr&eacute;vio aviso.</span></font>
+          </p>
+          <p style="margin-bottom: 0.11in; line-height: 108%">
+            <font face="Times New Roman, serif"><span lang="pt-BR">Declaro
+                que estou recebendo o CELULAR {{marcaSelecionada}} {{celularSelecionado}} -{{subModeloSelecionado}},
+                {{colabCelular.acessorios}}, IMEI - {{imeiSelecionado}}, caso haja necessidade
+                de algum reparo ou manuten&ccedil;&atilde;o comunicarei imediatamente
+                a empresa.</span></font>
+          </p>
+          <p align="justify"
+            style="margin-bottom: 0.11in; line-height: 150%; background: #ffffff; page-break-after: avoid">
+            <font face="Times New Roman, serif"><span lang="pt-BR">Responsabilizo-me
+                pelo uso correto e zelo do equipamento, sendo que qualquer dano
+                causado ao mesmo por mau uso, perca ou falta de zelo as despesas
+                ser&atilde;o de minha responsabilidade assim como, caso na devolu&ccedil;&atilde;o
+                o equipamento n&atilde;o estiver nas mesmas condi&ccedil;&otilde;es
+                de uso, as despesas para conserto, manuten&ccedil;&atilde;o e ou
+                substitui&ccedil;&atilde;o tamb&eacute;m ser&atilde;o de minha
+                inteira</span></font>
+            <font face="Times New Roman, serif">
+              <font size="3" style="font-size: 12pt"><span lang="pt-BR">
+                  responsabilidade. Sendo que os referidos valores ser&atilde;o
+                  descontados em folha de pagamento e/ou rescis&atilde;o contratual, o
+                  que desde j&aacute; autorizo.</span></font>
+            </font>
+          </p>
+          <p align="justify"
+            style="margin-bottom: 0.11in; line-height: 150%; background: #ffffff; page-break-after: avoid">
+            <font face="Times New Roman, serif">
+              <font size="3" style="font-size: 12pt"><span lang="pt-BR">{{cidadeTermo}}
+                  &ndash; MG / {{dataExtensa}}</span></font>
+            </font>
+          </p>
+          <p lang="pt-BR" align="justify"
+            style="margin-bottom: 0.11in; line-height: 150%; background: #ffffff; page-break-after: avoid">
+            <br />
+            <br />
+
+          </p>
+          <p align="justify"
+            style="margin-bottom: 0.11in; line-height: 150%; background: #ffffff; page-break-after: avoid"><a
+              name="_GoBack"></a>
+            <font face="Times New Roman, serif">
+              <font size="3" style="font-size: 12pt"><span lang="pt-BR">________________________________________<br />
+                </span></font>
+            </font>
+            <font face="Times New Roman, serif">
+              <font size="3" style="font-size: 12pt"><span lang="pt-BR">{{nomeColaborador}}</span></font>
+            </font>
+          </p>
+          <p style="margin-bottom: 0.11in; line-height: 108%"><br />
+            <br />
+
+          </p>
+          <div title="footer">
+            <p style="margin-top: 0.46in; margin-bottom: 0.11in; line-height: 108%">
+              <br />
+              <br />
+
+            </p>
+          </div>
+
+        </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Configuração de impressão modal -->
+<div id="printConfigModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" style="color: white;">Variaveis do termo</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <div class="row">
+          <div class="col-4">
+            <label for="empresaInput">Empresa: </label>
+            <input type="text" class="form-control" [(ngModel)]="empresaTermo" />
+          </div>
+
+          <div class="col-4">
+            <label for="cidadeInput">Cidade: </label>
+            <input type="text" class="form-control" [(ngModel)]="cidadeTermo" />
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Celulares Disponiveis Modal -->
+
+<div class="modal fade ajustyModal" id="celularDisponivelModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title text-white">Celulares disponiveis</h2>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <div class="row">
+          <div class="col-6">
+            <label for="filtroTableCelularDisponivel">Filtro: </label>
+            <input type="text" (keyup)="filterTableCelularDisp($event.target.value)" class="form-control" placeholder="Filtro..." />
+          </div>
+        </div>
+
+        <br/>
+
+        <table id="InUseTable" class="table table-bordered table-hover table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Modelo</th>
+              <th scope="col">Cor</th>
+              <th scope="col">Imei</th>
+              <th scope="col">Imei02</th>
+              <th scope="col">Situação</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr id="inUseTr" *ngFor="let phone of celulares">
+              <td>{{phone.modelo.nome}}</td>
+              <td>{{phone.cor}}</td>
+              <td>{{phone.imei}}</td>
+              <td>{{phone.imei02}}</td>
+              <td>{{phone.situation.descricao}}</td>
+            </tr>
+          </tbody>
+        </table>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal celulares em uso -->
+
+<div class="modal fade ajustyModal" id="celularEmUsoModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title text-white">Celulares em uso</h2>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <div class="row">
+          <div class="col-6">
+            <label for="filtroTableEmUso">Filtro: </label>
+            <input type="text" (keyup)="filterCelularEmUso($event.target.value)" class="form-control" placeholder="Filtro..." />
+          </div>
+        </div>
+
+        <br/>
+
+        <table id="tableCelularEmUso" class="table table-bordered table-hover">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Colaborador</th>
+              <th scope="col">Celular</th>
+              <th scope="col">Chip</th>
+              <th scope="col">Mobile Email</th>
+              <th scope="col">Data Comodato</th>
+              <th scope="col">Detalhe</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr id="celularContentTr" *ngFor="let celularUso of celularesEmUso">
+              <td scope="row">{{celularUso.collaborator.nome}}</td>
+              <td>{{celularUso.phone.modelo.nome}}</td>
+              <td>{{celularUso.chip.numero_tel}}</td>
+              <td>{{celularUso.mobileEmail.mobil_email}}</td>
+              <td>{{celularUso.data_comodato}}</td>
+              <td><button type="button" class="btn btn-info">Detalhe</button></td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>

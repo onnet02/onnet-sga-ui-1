@@ -1,0 +1,342 @@
+<div class="header bg-gradient-success pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+
+    </div>
+  </div>
+</div>
+
+
+<div class="container-fluid mt--7">
+
+  <!-- Contadores cards -->
+  <div class="row">
+    <div class="col-4">
+      <div class="card card-stats mb-4 mb-lg-0 ponter">
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <h5 class="card-title text-uppercase text-muted mb-0">Equipamentos Disponiveis</h5>
+              <span class="h2 font-weight-bold mb-0">{{countEquipamentInUSe}}</span>
+            </div>
+            <div class="col-auto">
+              <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                <i class="fas fa-mobile-alt"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-4">
+      <div class="card card-stats mb-4 mb-lg-0 ponter">
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <h5 class="card-title text-uppercase text-muted mb-0">Equipamentos em uso</h5>
+              <span class="h2 font-weight-bold mb-0">{{countEquipamentAvaiable}}</span>
+            </div>
+            <div class="col-auto">
+              <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                <i class="fas fa-mobile-alt"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-4">
+      <div class="card card-stats mb-4 mb-lg-0 pointer bg-warning" [routerLink]="['/historico-equipamento']">
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <h5 class="card-title text-uppercase text-white mb-0">Historico de equipamentos</h5>
+              <span class="h2 font-weight-bold mb-0"></span>
+            </div>
+            <div class="col-auto">
+              <div class="icon icon-shape bg-primary text-white rounded-circle shadow">
+                <i class="fas fa-history"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Fim contadores -->
+
+  <br />
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card" id="main-card">
+
+
+
+        <div class="row">
+          <div class="col-12">
+            <label for="empresaFilter">Filtrar por empresa: </label>
+            <div class="filtroPorEmpresa">
+              <div class="tagEmpresa" (click)="filterByCity(empresa)">
+                <span>Todas</span>
+              </div>
+              <div (click)="filterByCity(empresa)" class="tagEmpresa" *ngFor="let empresa of empresas">
+                {{empresa.nome_fantasia | uppercase}}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <br />
+
+        <div class="row">
+
+          <div class="col-6">
+            <label for="colaboratorTableFilter">Filtro: </label>
+            <input type="text" (keyup)="filterColaboradorTable($event.target.value)" class="form-control">
+
+            placeholder="Filtro..." />
+          </div>
+
+        </div>
+
+        <br />
+
+        <div class="row">
+          <table id="colaboradoresTable" class="table table-hover table-bordered">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Colaborador</th>
+                <th scope="col">Email</th>
+                <th scope="col">Setor</th>
+                <th scope="col">Cargo</th>
+                <th scope="col">Contato</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr (click)="getColaborador(colaborador)" data-toggle="modal" data-target="#comodatoModal"
+                [class.active]="i == selectedRow" (click)="setClickedRow(i)" id="contentTr"
+                *ngFor="let colaborador of colaboradores; let i = index">
+                <td>{{colaborador.nome}}</td>
+                <td>{{colaborador.email.endereco}}</td>
+                <td>{{colaborador.setor.nome}}</td>
+                <td>{{colaborador.cargo.nome}}</td>
+                <td>{{colaborador.contato}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+
+<!-- Inicio Modal de Comodato -->
+<div class="modal fade" id="comodatoModal" role="dialog">
+  <div class="modal-dialog modal-info modal-dialog-centered" role="document">
+    <div class="modal-content bg-gradient-secondary">
+
+      <div class="modal-header">
+        <h3 class="modal-title" id="modal-title-notification">Gerenciar Equipamentos</h3>
+        <button type="button" class="close" data-dismiss="modal">
+          <span>X</span>
+        </button>
+      </div>
+
+      <br />
+
+      <div class="row">
+        <div class="col-6">
+          <button type="button" (click)="changeToModalComodato()" class="btn btn-warning full">Comodato &nbsp;<i
+              class="fas fa-upload"></i></button>
+        </div>
+        <div class="col-6">
+          <button type="button" (click)="changeToModalDevolucao()" class="btn btn-info full">Devolução &nbsp; <i
+              class="fas fa-download"></i></button>
+        </div>
+      </div>
+
+      <!-- Stepper of Modal -->
+      <div *ngIf="isComodato" class="modal-body">
+        <mat-horizontal-stepper linear #stepper>
+          <!-- Step 1 -->
+
+          <mat-step [stepControl]="1" [editable]="isEditable">
+            <form [formGroup]="equipamentoForm">
+              <ng-template matStepLabel>Selecione os equipamentos</ng-template>
+
+              <div class="row">
+                <div class="col-3">
+                  <label for="dataComodato">Data de comodato: </label>
+                  <input type="date" id="dataComodato" class="form-control" formControlName="data_comodato"
+                    [(ngModel)]="equipamentoColaborador.data_comodato" /> </div>
+
+
+                <div class="col-9">
+                  <label for="EquipamentoDrop">Equipamentos: </label>
+                  <button id="EquipamentoDrop" (click)="openDrop()" type="button"
+                    class="btn btn-info btn-block">Selecionar Equipamento</button>
+                  <div id="equipamentDropdown" class="dropdown-content">
+                    <input type="text" class="form-control full-input" placeholder="Procurar..." id="equipFilter"
+                      (keyup)="filterEquipamento($event.target.value)" />
+                    <a id="equipamentosList" class="equipamentosDropContent" *ngFor="let equipamento of equipamentos; let i = index"
+                      (click)="addEquipamentOnList(equipamento, index)"> {{equipamento.nome}} -
+                      {{equipamento.configuracao}}</a>
+                  </div>
+                </div>
+
+
+
+              </div>
+
+              <br />
+
+              <div class="row">
+                <div class="col-12">
+
+                  <table class="table">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Modelo</th>
+                        <th scope="col">Data de Aquisição</th>
+                        <th scope="col">Configuração</th>
+                        <th scope="col">Remover</th>
+                        <th scope="col-6">Observação</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let equip of equipamentosSelecionados; let i = index">
+                        <td>{{equip.equipament_id.nome}}</td>
+                        <td>{{equip.equipament_id.modelo.nome}}</td>
+                        <td>{{equip.equipament_id.data_aquisicao | date}}</td>
+                        <td>{{equip.equipament_id.configuracao}}</td>
+                        <td><button type="button" class="btn btn-danger"
+                            (click)="removerItem(equip, index)">Remover</button></td>
+                        <td><textarea cols="30" rows="3" class="form-control"
+                            (focusout)="saveObservacao(equip, i, $event.target.value)"></textarea></td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <div class="row">
+                    <div class="col-3">
+                      <mat-checkbox (change)="isChecked()" [labelPosition]="labelPosition">Termo assinado</mat-checkbox>
+                    </div>
+                  </div>
+
+                  <br />
+
+                  <div class="row">
+                    <div class="col-1">
+                      <button type="button" class="btn btn-warning" (click)="printTerm()">Imprimir &nbsp;<i
+                          class="fas fa-print"></i></button>
+                    </div>
+                    <div class="col-1"></div>
+                    <div class="col-1">
+                      <button type="button" class="btn btn-facebook">Fazer upload &nbsp;<i
+                          class="fas fa-file-upload"></i></button>
+                    </div>
+                  </div>
+
+                  <br />
+
+                  <div class="row">
+                    <div class="col-2"></div>
+                    <div class="col-7"></div>
+                    <div class="col-3">
+                      <button type="button" class="btn btn-success" (click)="save()" matStepperNext>Confirmar e
+                        Salvar&nbsp;<i class="fas fa-check"></i></button>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+
+            </form>
+          </mat-step>
+
+
+
+        </mat-horizontal-stepper>
+      </div>
+
+      <div *ngIf="isDevolucao" class="modal-body">
+
+        <div class="container">
+          <div class="row">
+            <div class="col-6">
+              <label for="dataInput">Date de devolução</label>
+              <input type="date" id="dataInput" [(ngModel)]="dataDevolucao" class="form-control" />
+            </div>
+          </div>
+
+          <br />
+
+          <table class="table table-bordered table-striped table-hover">
+            <thead>
+              <tr class="thead-dark">
+                <th scope="col">Equipamento</th>
+                <th scope="col">Modelo</th>
+                <th scope="col">Configuração</th>
+                <th scope="col">Data de comodato</th>
+                <th scope="col">Observação</th>
+                <th scope="col">Devolução</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let equipamentoColab of colaboradorComodatos">
+                <td>{{equipamentoColab.equipamento.nome}}</td>
+                <td>{{equipamentoColab.equipamento.modelo.nome}}</td>
+                <td>{{equipamentoColab.equipamento.configuracao}}</td>
+                <td>{{equipamentoColab.data_comodato | date}}</td>
+                <td>{{equipamentoColab.observacao}}</td>
+                <td>
+                  <button type="button" class="btn btn-danger"
+                    (click)="devolucaoEquipamento(equipamentoColab)">Devolver</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Termo -->
+<div class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Imprimir</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <div id="termo">
+
+
+        </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

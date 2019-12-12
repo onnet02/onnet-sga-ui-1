@@ -1,0 +1,258 @@
+<div class="header bg-gradient-success pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+
+    </div>
+  </div>
+</div>
+
+
+<div class="container-fluid mt--7">
+
+  <div class="row">
+
+    <div class="col-4">
+      <div class="card card-stats mb-4 mb-lg-0">
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <h5 class="card-title text-uppercase text-muted mb-0">Total colaboradores</h5>
+              <span class="h2 font-weight-bold mb-0">{{countAllColaborators}}</span>
+            </div>
+            <div class="col-auto">
+              <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                <i class="fas fa-chart-bar"></i>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-4">
+      <div class="card card-stats mb-4 mb-lg-0">
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <h5 class="card-title text-uppercase text-muted mb-0">Colaboradores Ativos</h5>
+              <span class="h2 font-weight-bold mb-0">{{countActiveColaborators}}</span>
+            </div>
+            <div class="col-auto">
+              <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                <i class="fas fa-chart-bar"></i>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-4">
+      <div class="card card-stats mb-4 mb-lg-0" [routerLink]="['/gerenciar-email']">
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <h5 class="card-title text-uppercase text-muted mb-0">Gerenciar Emails</h5>
+              <span class="h2 font-weight-bold mb-0"></span>
+            </div>
+            <div class="col-auto">
+              <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                <i class="fas fa-chart-bar"></i>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br />
+
+  <div class="row">
+    <div class="card card-design col-12 bg-color-smoth ">
+
+      <button (click)="clearForm()" type="btn" class="btn btn-success  sticky " data-target="#newColaboradorModal"
+        data-toggle="modal">Novo
+        colaborador
+        &nbsp; <i class="fas fa-plus-circle"></i></button>
+
+      <div class="row">
+        <div class="col-6">
+          <mat-form-field>
+            <input matInput type="text" (keyup)="applyFilter($event.target.value)" class="form-control" filterInput
+              placeholder="Filtrar" />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <br>
+
+
+
+      <table id="table-cargo" mat-table [dataSource]="dataSource" matSort width="100%">
+
+        <ng-container matColumnDef="nome">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Nome:</th>
+          <td mat-cell *matCellDef="let element">{{element.nome}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Email:</th>
+          <td mat-cell *matCellDef="let element">{{element.email.endereco}}</td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="empresa">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Empresa:</th>
+          <td mat-cell *matCellDef="let element">{{element.empresa.nome_fantasia}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="setor">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Setor:</th>
+          <td mat-cell *matCellDef="let element">{{element.setor.nome}}</td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="cargo">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Cargo:</th>
+          <td mat-cell *matCellDef="let element">{{element.cargo.nome}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="ativo">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Ativo:</th>
+          <td mat-cell *matCellDef="let element">{{element.desligado ? 'Desligado' : 'Ativo'}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="editar">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Editar</th>
+          <td mat-cell *matCellDef="let element">
+            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#newColaboradorModal"
+              (click)="loadInput(element)">Editar &nbsp;<i class="far fa-edit"></i> </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      </table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+
+    </div>
+
+
+    <!-- Modal -->
+    <div class="col-12">
+      <div class="modal fade" id="newColaboradorModal" tabindex="-1" role="dialog" aria-labelledby="modal-notification"
+        aria-hidden="true">
+        <div class="modal-dialog modal-info modal-dialog-centered modal-" role="document">
+          <div class="modal-content bg-gradient-info">
+
+            <div class="modal-header">
+              <h3 class="modal-title" id="modal-title-notification">Criar uma novo status</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+
+            <div class="modal-body">
+
+              <form [formGroup]="colaboradorForm">
+
+                <div class="row">
+                  <div class="col-6">
+                    <label for="nomeInput">Nome: </label>
+                    <input type="text" class="form-control" formControlName="nome" [(ngModel)]="colaborador.nome"
+                      id="nomeInput" placeholder="Nome..." />
+                  </div>
+                </div>
+
+                <br />
+
+                <div class="row">
+
+                  <div class="col-4">
+                    <label for="contatoInput">Contato: </label>
+                    <input mask="(00) 0 0000-0000" [showMaskTyped]="true" type="text" class="form-control"
+                      formControlName="contato" [(ngModel)]="colaborador.contato" />
+                  </div>
+
+                  <div class="col-4">
+                    <label for="emailInput">Email: </label>
+                    <select class="form-control" formControlName="email_id" [(ngModel)]="colaborador.email_id"
+                      id="emailInput">
+                      <option selected>Selecione um email</option>
+                      <option *ngFor="let email of emails" value="{{email.id}}">{{email.endereco}}</option>
+                    </select>
+                  </div>
+
+                </div>
+
+                <br />
+
+
+                <div class="row">
+
+                  <div class="col-4">
+                    <label for="empresaInput">Empresa: </label>
+                    <select class="form-control" formControlName="empresa_id" [(ngModel)]="colaborador.empresa_id"
+                      id="empresaInput">
+                      <option selected>Selecione uma empresa</option>
+                      <option *ngFor="let empresa of empresas" value="{{empresa.id}}">{{empresa.nome_fantasia}}</option>
+                    </select>
+                  </div>
+
+                  <div class="col-4">
+                    <label for="setor">Setor : </label>
+                    <select class="form-control" formControlName="setor_id" [(ngModel)]="colaborador.setor_id"
+                      id="setorInput">
+                      <option selected>Selecione um cargo</option>
+                      <option *ngFor="let setor of setors" value="{{setor.id}}">{{setor.nome}}</option>
+                    </select>
+                  </div>
+
+                  <div class="col-4">
+                    <label for="cargoInput">Cargo: </label>
+                    <select class="form-control" formControlName="cargo_id" [(ngModel)]="colaborador.cargo_id"
+                      id="cargoInput">
+                      <option selected>Selecione um cargo</option>
+                      <option *ngFor="let cargo of cargos" value="{{cargo.id}}">{{cargo.nome}}</option>
+                    </select>
+                  </div>
+
+                </div>
+
+                <br />
+
+                <div class="row">
+                  <div class="col-2">
+                    <mat-checkbox [(ngModel)]="colaborador.desligado" formControlName="desligado"
+                      [labelPosition]="labelPosition"> Desligado </mat-checkbox>
+                  </div>
+                </div>
+
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-link text-white ml-auto" data-dismiss="modal">Fechar</button>
+                  <button type="button" class="btn btn-success" (click)="save()"
+                    [disabled]="!colaboradorForm.valid">Salvar&nbsp;<i class="fas fa-paper-plane"></i></button>
+                </div>
+              </form>
+
+            </div>
+
+
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>

@@ -1,0 +1,70 @@
+<div class="header bg-gradient-success pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid mt--7">
+
+  <div class="row">
+
+    <div class="col-12">
+      <div class="card" id="main-card">
+
+        <div class="row">
+          <div class="col-6">
+            <label for="filtroTableHistorico">Filtro: </label>
+            <input type="text" (keyup)="filterTable($event.target.value)" class="form-control"
+              placeholder="Filtro..." />
+          </div>
+        </div>
+
+        <br/>
+        <div class="row">
+          <div class="col-12">
+
+            <table id="historicTable" class="table table-responsive table-bordered   table-hover">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Colaborador</th>
+                  <th scope="col">Celular</th>
+                  <th scope="col">Sub Modelo</th>
+                  <th scope="col">Cor</th>
+                  <th scope="col">Imei</th>
+                  <th scope="col">Imei02</th>
+                  <th scope="col">Serial</th>
+                  <th scope="col">Chip</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Data Comodato</th>
+                  <th scope="col">Data Devolução</th>
+                  <th scope="col">Acessorios</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr id="contentTr" *ngFor="let historic of colabCelulares">
+                  <td>{{historic.collaborator.nome}}</td>
+                  <td>{{historic.phone.modelo.nome}}</td>
+                  <td>{{historic.phone.sub_modelo}}</td>
+                  <td>{{historic.phone.cor}}</td>
+                  <td>{{historic.phone.imei}}</td>
+                  <td>{{historic.phone.imei02}}</td>
+                  <td>{{historic.phone.serial}}</td>
+                  <td>{{historic.chip.numero_tel}} - {{historic.chip.operadora}}</td>
+                  <td>{{historic.mobileEmail.mobil_email}}</td>
+                  <td>{{historic.data_comodato}}</td>
+                  <td>{{historic.data_devolucao}}</td>
+                  <td>{{historic.acessorios}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+</div>

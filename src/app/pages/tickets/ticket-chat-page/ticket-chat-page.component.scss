@@ -1,0 +1,157 @@
+#main-card {
+  margin-top: -150px;
+}
+
+.customBtn {
+  width: 100%;
+  position: sticky;
+  z-index: 1;
+}
+
+.modal-dialog {
+  max-width: 1150px !important;
+  margin: auto;
+}
+
+.table {
+  max-height: 500px;
+}
+
+.sticky {
+  width: 100%;
+  position: sticky !important;
+  bottom: 50px;
+}
+
+th {
+  color: white !important;
+}
+
+.rounded-input {
+  border-radius: 180px;
+}
+
+.search-btn {
+  position: absolute;
+  top: 20%;
+  left: 4%;
+}
+
+.card-header {
+  background-color: #00a5a8e7;
+  padding: 25px;
+}
+
+.card-header h2 {
+  color: white;
+  font-weight: bold;
+}
+
+.card-body{
+    padding: 25px;
+    background-color:#f1f1f1;
+    max-height: 400px !important;
+    height: 400px !important; 
+}
+
+.card-footer{
+    // background-color: rgb(9, 156, 156);
+    background-color: #02888b;
+}
+
+textarea{
+    resize: none;
+}
+
+.btn-full {
+  width: 100% !important;
+}
+
+.animatedIcon {
+  color: blue;
+  cursor: pointer;
+  transform: scale(1.5);
+  transition: 0.1s;
+}
+
+.animatedIcon:hover {
+  transform: scale(2);
+}
+
+.animatedIcon:active {
+  color: aqua;
+}
+
+
+/* Global style */
+
+  .btn-tertiary {
+    color: #555;
+    padding: 0;
+    margin: auto;
+    display: block;
+    border: 2px solid #555;
+    &:hover, 
+      &:focus {
+        color: lighten(#555, 20%);
+        border-color: lighten(#555, 20%);
+      }
+  }
+  
+  /* input file style */
+  
+  .input-file {
+      opacity: 0;
+      overflow: hidden;
+      position: absolute;
+      z-index: -1;
+    + .js-labelFile {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      padding: 0 10px;
+      cursor: pointer;
+      .icon:before {
+        //font-awesome
+        content: "\f093";
+      }
+      &.has-file {
+        .icon:before {
+          //font-awesome
+          content: "\f00c";
+          color: #5AAC7B;
+        }
+      }
+    }
+  }
+
+  .previewBox{
+    background-color: rgb(232, 236, 231) !important;
+    padding: 10px;
+    margin: 10px;
+    height: 200px;
+    max-height: 200px;
+    border-radius: 5px;
+    content: '';
+    overflow: hidden;
+    overflow: scroll;
+  }
+
+  .previewImage{
+    background-color: rgb(8, 85, 252);
+    padding: 5px;
+    border-radius: 5px;
+    margin: auto;
+  }
+
+  .modal-header{
+    background-color: #02888b;
+    color: white !important;
+    font-weight: bold;
+    h3{
+      color: white;
+      font-size: 15pt;
+      font-weight: bold;
+    }
+  } 
+
